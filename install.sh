@@ -12,7 +12,7 @@ git clone git@gitlab.com:bonita-platform/server.git
 
 
 printf "\n\n##### Copying composer..."
-cp bonita/java/docker-compose-hom.yml.sample docker-compose.yml
+cp initial/docker-compose.yml.sample docker-compose.yml
 
 
 rm proxy.conf

@@ -21,7 +21,7 @@ services:
       - 80:8080
     image: bonita-iocom
     volumes:
-      - "./bonita-platform:/opt/"
+      - "./server:/opt/"
     environment:
       - POSTGRES_ENV_POSTGRES_PASSWORD=@iocom.a1b2c3.@iocom
       - DB_VENDOR=postgres
