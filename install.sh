@@ -8,7 +8,7 @@ printf "###Build Done!"
 cd ..
 
 printf "\n\n##### Cloning platform..."
-git
+git clone
 
 
 printf "\n\n##### Copying composer..."
