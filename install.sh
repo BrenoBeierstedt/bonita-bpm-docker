@@ -8,7 +8,7 @@ printf "###Build Done!"
 cd ..
 
 printf "\n\n##### Cloning platform..."
-git clone
+git clone git@gitlab.com:bonita-platform/server.git
 
 
 printf "\n\n##### Copying composer..."
