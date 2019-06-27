@@ -12,7 +12,7 @@ git clone git@gitlab.com:bonita-platform/server.git
 
 
 printf "\n\n##### Copying composer..."
-cp initial/docker-compose.yml.sample docker-compose.yml
+cp initial/docker-compose-hom.yml.sample docker-compose.yml
 
 
 rm proxy.conf
@@ -28,9 +28,9 @@ echo "
 As last step you need to manually edit /etc/hosts 
 in your PC (Mac and linux)
 
- 127.0.0.1  prod.postgres.iocom.com
- 127.0.0.1  prod.pgadminer.iocom.com
- 127.0.0.1  prod.bonita.iocom.com/bonita
+ 127.0.0.1  hom.postgres.iocom.com
+ 127.0.0.1  hom.pgadminer.iocom.com
+ 127.0.0.1  hom.bonita.iocom.com/bonita
 
 "
 
