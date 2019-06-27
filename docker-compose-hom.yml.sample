@@ -1,0 +1,83 @@
+version: '3.6'
+services:
+
+  proxy:
+    container_name: hom.proxy.com.com
+    image: jwilder/nginx-proxy:latest
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+      - "./proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro"
+    ports:
+      - "90:80"
+    restart: unless-stopped
+    networks:
+      main:
+        aliases:
+          - hom.proxy.iocom.com
+
+  hom.bonita.iocom.com:
+    container_name: hom.bonita.iocom.com
+    ports:
+      - 80:8080
+    image: bonita-iocom
+    volumes:
+      - "./server:/opt/"
+    environment:
+      - POSTGRES_ENV_POSTGRES_PASSWORD=@iocom.a1b2c3.@iocom
+      - DB_VENDOR=postgres
+      - DB_HOST=hom.postgres.iocom.com
+      - DB_NAME=bonita
+      - DB_USER=administrator
+      - DB_ADMIN_USER=administrator
+      - DB_PASS=@iocom.a1b2c3.@iocom
+      - TENANT_LOGIN=administrator
+      - TENANT_PASSWORD=@iocom.a1b2c3.@iocom
+      - PLATFORM_LOGIN=administrator
+      - PLATFORM_PASSWORD=@iocom.a1b2c3.@iocom
+
+    restart: unless-stopped
+    depends_on:
+      - hom.postgres.iocom.com
+    links:
+      - hom.postgres.iocom.com
+    command: ['./opt/files/startup.sh']
+
+    networks:
+      main:
+        aliases:
+          - hom.bonita.iocom.com
+
+  hom.postgres.iocom.com:
+    container_name: hom.postgres.iocom.com
+
+    image: postgres:9.6
+    environment:
+      - POSTGRES_USER=administrator
+      - POSTGRES_PASSWORD=@iocom.a1b2c3.@iocom
+      - POSTGRES_DB=bonita
+    restart: unless-stopped
+
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      main:
+        aliases:
+          - hom.postgres.iocom.com
+
+
+  hom.pgadminer.iocom.com:
+    container_name: hom.pgadminer.iocom.com
+    image: clue/adminer
+    restart: unless-stopped
+
+    ports:
+      - "99:80"
+    networks:
+     main:
+       aliases:
+         - hom.adminer.iocom.com
+
+
+
+networks:
+  main:
