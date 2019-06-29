@@ -2,7 +2,7 @@ version: '3.6'
 services:
 
   proxy:
-    container_name: prod.proxy.com.com
+    container_name: proxy.iocom.com.br
     image: jwilder/nginx-proxy:latest
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
@@ -13,10 +13,10 @@ services:
     networks:
       main:
         aliases:
-          - prod.proxy.iocom.com
+          - proxy.iocom.com.br
 
-  prod.bonita.iocom.com:
-    container_name: prod.bonita.iocom.com
+  bpm.iocom.com.br:
+    container_name: bpm.iocom.com.br
     ports:
       - 80:8080
     image: bonita-iocom
@@ -37,18 +37,18 @@ services:
 
     restart: unless-stopped
     depends_on:
-      - prod.postgres.iocom.com
+      - postgres.iocom.com.br
     links:
-      - prod.postgres.iocom.com
+      - postgres.iocom.com.br
     command: ['./opt/files/startup.sh']
 
     networks:
       main:
         aliases:
-          - prod.bonita.iocom.com
+          - bpm.iocom.com.br
 
-  prod.postgres.iocom.com:
-    container_name: prod.postgres.iocom.com
+  postgres.iocom.com.br:
+    container_name: postgres.iocom.com.br
 
     image: postgres:9.6
     environment:
@@ -62,11 +62,11 @@ services:
     networks:
       main:
         aliases:
-          - prod.postgres.iocom.com
+          - postgres.iocom.com.br
 
 
-  prod.pgadminer.iocom.com:
-    container_name: prod.pgadminer.iocom.com
+  pgadminer.iocom.com.br:
+    container_name: pgadminer.iocom.com.br
     image: clue/adminer
     restart: unless-stopped
 
@@ -75,7 +75,7 @@ services:
     networks:
      main:
        aliases:
-         - prod.adminer.iocom.com
+         - pgadminer.iocom.com.br
 
 
 
