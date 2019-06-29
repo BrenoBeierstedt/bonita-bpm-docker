@@ -8,7 +8,7 @@ services:
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
       - "./proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro"
     ports:
-      - "90:80"
+      - "80:80"
     restart: unless-stopped
     networks:
       main:
@@ -49,7 +49,6 @@ services:
 
   postgres.iocom.com.br:
     container_name: postgres.iocom.com.br
-
     image: postgres:9.6
     environment:
       - POSTGRES_USER=administrator
@@ -65,17 +64,19 @@ services:
           - postgres.iocom.com.br
 
 
-  pgadminer.iocom.com.br:
-    container_name: pgadminer.iocom.com.br
-    image: clue/adminer
+  pgadmin.iocom.com.br:
+    container_name: pgadmin.iocom.com.br
+    image: dpage/pgadmin4
     restart: unless-stopped
-
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "sistemas@iocom.com.br"
+      PGADMIN_DEFAULT_PASSWORD: "@iocom.a1b2c3.@iocom"
     ports:
       - "99:80"
     networks:
-     main:
-       aliases:
-         - pgadminer.iocom.com.br
+      main:
+        aliases:
+          - pgadmin.iocom.com.br
 
 
 
