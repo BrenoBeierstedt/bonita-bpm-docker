@@ -25,7 +25,7 @@ services:
     environment:
       - POSTGRES_ENV_POSTGRES_PASSWORD=@iocom.a1b2c3.@iocom
       - DB_VENDOR=postgres
-      - DB_HOST=prod.postgres.iocom.com
+      - DB_HOST=postgres.iocom.com.br
       - DB_NAME=bonita
       - DB_USER=administrator
       - DB_ADMIN_USER=administrator
