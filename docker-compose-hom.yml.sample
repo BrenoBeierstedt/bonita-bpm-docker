@@ -2,7 +2,7 @@ version: '3.6'
 services:
 
   proxy:
-    container_name: hom.proxy.com.com
+    container_name: hom.proxy.iocom.com.br
     image: jwilder/nginx-proxy:latest
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
@@ -13,10 +13,10 @@ services:
     networks:
       main:
         aliases:
-          - hom.proxy.iocom.com
+          - hom.proxy.iocom.com.br
 
-  hom.bonita.iocom.com:
-    container_name: hom.bonita.iocom.com
+  hom.bpm.iocom.com.br:
+    container_name: hom.bpm.iocom.com.br
     ports:
       - 80:8080
     image: bonita-iocom
@@ -25,7 +25,7 @@ services:
     environment:
       - POSTGRES_ENV_POSTGRES_PASSWORD=@iocom.a1b2c3.@iocom
       - DB_VENDOR=postgres
-      - DB_HOST=hom.postgres.iocom.com
+      - DB_HOST=hom.postgres.iocom.com.br
       - DB_NAME=bonita
       - DB_USER=administrator
       - DB_ADMIN_USER=administrator
@@ -37,19 +37,18 @@ services:
 
     restart: unless-stopped
     depends_on:
-      - hom.postgres.iocom.com
+      - hom.postgres.iocom.com.br
     links:
-      - hom.postgres.iocom.com
+      - hom.postgres.iocom.com.br
     command: ['./opt/files/startup.sh']
 
     networks:
       main:
         aliases:
-          - hom.bonita.iocom.com
+          - hom.bpm.iocom.com.br
 
-  hom.postgres.iocom.com:
-    container_name: hom.postgres.iocom.com
-
+  hom.postgres.iocom.com.br:
+    container_name: hom.postgres.iocom.com.br
     image: postgres:9.6
     environment:
       - POSTGRES_USER=administrator
@@ -62,20 +61,22 @@ services:
     networks:
       main:
         aliases:
-          - hom.postgres.iocom.com
+          - hom.postgres.iocom.com.br
 
 
-  hom.pgadminer.iocom.com:
-    container_name: hom.pgadminer.iocom.com
-    image: clue/adminer
+  hom.pgadmin.iocom.com.br:
+    container_name: hom.pgadmin.iocom.com.br
+    image: dpage/pgadmin4
     restart: unless-stopped
-
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "sistemas@iocom.com.br"
+      PGADMIN_DEFAULT_PASSWORD: "@iocom.a1b2c3.@iocom"
     ports:
       - "99:80"
     networks:
-     main:
-       aliases:
-         - hom.adminer.iocom.com
+      main:
+        aliases:
+          - hom.pgadmin.iocom.com.br
 
 
 
